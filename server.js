@@ -25,16 +25,17 @@ function draw() {
     encoder.setDelay(500);  // frame delay in ms
     encoder.setQuality(10); // image quality. 10 is default.
     
-    var Canvas = require('canvas'),
-        Image = Canvas.Image,
-        canvas = new Canvas(200, 200),
-        ctx = canvas.getContext('2d');
+    var canvas = new Canvas(200, 200);
+    var ctx = canvas.getContext('2d');
 
-    ctx.font = '30px Impact';
-    ctx.rotate(0.1);
-    ctx.fillText('Awesome!', 50, 100);
+    //ctx.font = '30px Impact';
+    //ctx.rotate(0.1);
+    //ctx.fillText('Awesome!', 50, 100);
     
     // first frame
+    // red rectangle
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(0, 0, 200, 200);
     encoder.addFrame(ctx);
     
     // green rectangle
@@ -46,8 +47,8 @@ function draw() {
     
     var buf = encoder.out.getData();
     fs.writeFile('public/test.gif', buf, function (err) {
-      // animated GIF written to myanimated.gif
-        console.log("write error: " + err);
+      // animated GIF written
+        console.log("GIF writter");
     });
 
     return canvas;
