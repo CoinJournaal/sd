@@ -3,8 +3,6 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
-const {execFile} = require('child_process');
-const gifsicle = require('gifsicle');
 
 var port = process.env.PORT || 5000;
 
@@ -55,9 +53,6 @@ function draw(img) {
       // animated GIF written
         console.log("GIF written");
         
-        execFile(gifsicle, ['intro.gif', 'public/test.gif', '>','public/append.gif'], err => {
-            console.log('Appended');
-        });
     });
 
     return canvas;    
