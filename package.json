@@ -8,7 +8,7 @@
     "fs":"latest",
     "canvas":"latest",
     "gifencoder":"latest",
-    "gif":"latest"
+    "gm":"latest"
   },
   "main": "server.js",
   "scripts": {
