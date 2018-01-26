@@ -12,18 +12,24 @@ app.get("/sayHello", function (request, response) {
   response.end("Hello " + user_name + "!");
 });
 
-app.get("/png", function (request, response) {
-    
-    var canvas = new Canvas(200, 200, "png");
-    var g = canvas.getContext("2d");
-    g.fillStyle = "black";
-    g.fillRect(0, 0, 100, 100);
-
-    var buf = canvas.toBuffer();
-    fs.writeFileSync("/public/test.png", buf);
-    
-    response.end("test.png created");
+app.get("/png", function (request, res) {
+    res.setHeader('Content-Type', 'image/png');
+    draw().pngStream().pipe(res);
 });
+
+function draw() {
+    var Canvas = require('canvas'),
+        Image = Canvas.Image,
+        canvas = new Canvas(200, 200),
+        ctx = canvas.getContext('2d');
+
+    ctx.font = '30px Impact';
+    ctx.rotate(0.1);
+    ctx.fillText('Awesome!', 50, 100);
+
+    return canvas;
+}
+
 
 app.listen(port);
 console.log("Listening on port ", port);
