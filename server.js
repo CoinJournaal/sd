@@ -15,10 +15,22 @@ app.get("/sayHello", function (request, response) {
 
 app.get("/png", function (request, res) {
     res.setHeader('Content-Type', 'image/png');
-    draw().pngStream().pipe(res);
+    load().pngStream().pipe(res);
 });
 
-function draw() {
+function load() {
+    fs.readFile('bg.png', function(err, data) {
+        if (err) throw err;
+        var img = new Canvas.Image; // Create a new Image
+        img.src = data;
+
+        console.log('bg loaded');
+        
+        return draw(img);
+     });
+}
+
+function draw(img) {
     var encoder = new GIFEncoder(480, 270);
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
@@ -28,16 +40,8 @@ function draw() {
     var canvas = new Canvas(480, 270);
     var ctx = canvas.getContext('2d');
     
-    // first frame
-    fs.readFile('bg.png', function(err, data) {
-        if (err) throw err;
-        var img = new Canvas.Image; // Create a new Image
-        img.src = data;
-
-        ctx.drawImage(img, 0, 0, 480, 270);
-        console.log('bg loaded');
-    });   
-    
+    // first frame   
+    ctx.drawImage(img, 0, 0, 480, 270);
     ctx.fillStyle = '#ff0000';
     ctx.fillRect(0, 0, 200, 200);
     ctx.fillStyle = '#000000';
