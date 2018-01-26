@@ -19,7 +19,9 @@ app.get("/png", function (request, res) {
     var img = new Canvas.Image;
     img.onload = function(){ return draw(img).pngStream().pipe(res); } 
     img.src = "bg.png";
-    gm("public/test.gif").append("intro.gif").append(true);
+    gm("public/test.gif").append("intro.gif").append(function (err) {
+        if (!err) console.log('Append done');
+    });
 });
 
 function draw(img) {
