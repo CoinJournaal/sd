@@ -15,54 +15,59 @@ app.get("/sayHello", function (request, response) {
 
 app.get("/png", function (request, res) {
     res.setHeader('Content-Type', 'image/png');
-    load().pngStream().pipe(res);
+    draw().pngStream().pipe(res);
 });
 
-function load() {
-    fs.readFile('bg.png', function(err, data) {
-        if (err) throw err;
-        var img = new Canvas.Image; // Create a new Image
-        img.src = data;
+function loadImage (url) {
+  return new Promise((resolve, reject) => {
+    const img = new Canvas.Image()
 
-        console.log('bg loaded');
-        
-        return draw(img);
-     });
+    img.onload = () => resolve(img)
+    img.onerror = () => reject(new Error('Failed to load image'))
+
+    request.get(url, (err, res) => {
+      if (err) return reject(err)
+
+      img.src = res.body
+    })
+  })
 }
 
 function draw(img) {
-    var encoder = new GIFEncoder(480, 270);
-    encoder.start();
-    encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
-    encoder.setDelay(500);  // frame delay in ms
-    encoder.setQuality(10); // image quality. 10 is default.
-    
-    var canvas = new Canvas(480, 270);
-    var ctx = canvas.getContext('2d');
-    
-    // first frame   
-    ctx.drawImage(img, 0, 0, 480, 270);
-    ctx.fillStyle = '#ff0000';
-    ctx.fillRect(0, 0, 200, 200);
-    ctx.fillStyle = '#000000';
-    ctx.font = '30px Impact';
-    ctx.fillText('#1 Stijger', 50, 100);
-    encoder.addFrame(ctx);
-    
-    // green rectangle
-    ctx.fillStyle = '#00ff00';
-    ctx.fillRect(0, 0, 200, 200);
-    encoder.addFrame(ctx);
-    
-    encoder.finish();
-    
-    var buf = encoder.out.getData();
-    fs.writeFile('public/test.gif', buf, function (err) {
-      // animated GIF written
-        console.log("GIF writter");
-    });
+    loadImage('bg.png').then((bg) => {
+        var encoder = new GIFEncoder(480, 270);
+        encoder.start();
+        encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
+        encoder.setDelay(500);  // frame delay in ms
+        encoder.setQuality(10); // image quality. 10 is default.
 
-    return canvas;
+        var canvas = new Canvas(480, 270);
+        var ctx = canvas.getContext('2d');
+
+        // first frame   
+        ctx.drawImage(bg, 0, 0, 480, 270);
+        ctx.fillStyle = '#ff0000';
+        ctx.fillRect(0, 0, 200, 200);
+        ctx.fillStyle = '#000000';
+        ctx.font = '30px Impact';
+        ctx.fillText('#1 Stijger', 50, 100);
+        encoder.addFrame(ctx);
+
+        // green rectangle
+        ctx.fillStyle = '#00ff00';
+        ctx.fillRect(0, 0, 200, 200);
+        encoder.addFrame(ctx);
+
+        encoder.finish();
+
+        var buf = encoder.out.getData();
+        fs.writeFile('public/test.gif', buf, function (err) {
+          // animated GIF written
+            console.log("GIF writter");
+        });
+
+        return canvas;
+    }
 }
 
 
