@@ -54,8 +54,16 @@ function draw(img) {
       // animated GIF written
         console.log("GIF written");
         
-        gm("public/test.gif").append("intro.gif").append(function (err) {
-            if (err) console.log('Error '+ err);
+        var dir = __dirname + '/public';
+        var out = dir + '/append.gif';
+        
+        gm("intro.gif").append("public/test.gif").append(function (err) {
+            if (!err) {
+                console.log("Appended");
+            }
+        }).write(out, function (err) {
+            if (err) return console.dir(arguments)
+            console.log(this.outname + " created  ::  " + arguments[3])
         });
     });
 
