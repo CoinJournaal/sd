@@ -18,56 +18,45 @@ app.get("/png", function (request, res) {
     draw().pngStream().pipe(res);
 });
 
-function loadImage (url) {
-  return new Promise((resolve, reject) => {
-    const img = new Canvas.Image()
-
-    img.onload = () => resolve(img)
-    img.onerror = () => reject(new Error('Failed to load image'))
-
-    request.get(url, (err, res) => {
-      if (err) return reject(err)
-
-      img.src = res.body
-    })
-  })
+function loadImage(url) {
+  return new Promise(resolve => { let i = new Image(); i.onload = ()=>{resolve(i)}; i.src=url; });
 }
 
 function draw(img) {
-    loadImage('bg.png').then((bg) => {
-        var encoder = new GIFEncoder(480, 270);
-        encoder.start();
-        encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
-        encoder.setDelay(500);  // frame delay in ms
-        encoder.setQuality(10); // image quality. 10 is default.
+    var encoder = new GIFEncoder(480, 270);
+    encoder.start();
+    encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
+    encoder.setDelay(500);  // frame delay in ms
+    encoder.setQuality(10); // image quality. 10 is default.
 
-        var canvas = new Canvas(480, 270);
-        var ctx = canvas.getContext('2d');
+    var canvas = new Canvas(480, 270);
+    var ctx = canvas.getContext('2d');
 
-        // first frame   
-        ctx.drawImage(bg, 0, 0, 480, 270);
-        ctx.fillStyle = '#ff0000';
-        ctx.fillRect(0, 0, 200, 200);
-        ctx.fillStyle = '#000000';
-        ctx.font = '30px Impact';
-        ctx.fillText('#1 Stijger', 50, 100);
-        encoder.addFrame(ctx);
+    // first frame   
+    let img = await loadImage(".bg.png");
+    ctx.drawImage(img, 0, 0, 480, 270);
+    ctx.fillStyle = '#ff0000';
+    ctx.fillRect(0, 0, 200, 200);
+    ctx.fillStyle = '#000000';
+    ctx.font = '30px Impact';
+    ctx.fillText('#1 Stijger', 50, 100);
+    encoder.addFrame(ctx);
 
-        // green rectangle
-        ctx.fillStyle = '#00ff00';
-        ctx.fillRect(0, 0, 200, 200);
-        encoder.addFrame(ctx);
+    // green rectangle
+    ctx.fillStyle = '#00ff00';
+    ctx.fillRect(0, 0, 200, 200);
+    encoder.addFrame(ctx);
 
-        encoder.finish();
+    encoder.finish();
 
-        var buf = encoder.out.getData();
-        fs.writeFile('public/test.gif', buf, function (err) {
-          // animated GIF written
-            console.log("GIF writter");
-        });
+    var buf = encoder.out.getData();
+    fs.writeFile('public/test.gif', buf, function (err) {
+      // animated GIF written
+        console.log("GIF writter");
+    });
 
-        return canvas;
-    }
+    return canvas;
+    
 }
 
 
