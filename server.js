@@ -3,6 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
+var gm = require('gm');
 
 var port = process.env.PORT || 5000;
 
@@ -17,7 +18,8 @@ app.get("/png", function (request, res) {
     res.setHeader('Content-Type', 'image/png');
     var img = new Canvas.Image;
     img.onload = function(){ return draw(img).pngStream().pipe(res); } 
-    img.src = "bg.png";    
+    img.src = "bg.png";
+    gm("public/test.gif").append("intro.gif").append(true);
 });
 
 function draw(img) {
