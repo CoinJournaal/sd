@@ -4,7 +4,9 @@
   "dependencies": {
     "express": "^4.14.1",
     "http-post": "^0.1.1",
-    "http-proxy": "^1.8.1"
+    "http-proxy": "^1.8.1",
+    "fs":"latest",
+    "canvas":"latest",
   },
   "main": "server.js",
   "scripts": {
