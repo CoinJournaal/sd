@@ -25,7 +25,7 @@ app.get("/png", function (request, response) {
     fs.writeFileSync("/public/test.png", buf);
     
     response.end("test.png created");
-}
+});
 
 app.listen(port);
 console.log("Listening on port ", port);
