@@ -15,33 +15,12 @@ app.get("/sayHello", function (request, response) {
 
 app.get("/png", function (request, res) {
     res.setHeader('Content-Type', 'image/png');
-    draw().pngStream().pipe(res);
+    var img = new Canvas.Image;
+    img.onload = function(){ return draw(img).pngStream().pipe(res); } 
+    img.src = "bg.png";    
 });
 
-function ImageCollection(list, callback){
-    var total = 0, images = {};   //private :)
-    for(var i = 0; i < list.length; i++){
-        var img = new Image();
-        images[list[i].name] = img;
-        img.onload = function(){
-            total++;
-            if(total == list.length){
-                callback && callback();
-            }
-        };
-        img.src = list[i].url;
-    }
-    this.get = function(name){
-        return images[name] || (function(){throw "Not exist"})();
-    };
-}
-
-//Create an ImageCollection to load and store my images
-var images = new ImageCollection([{
-    name: "Background", url: "bg.png"
-}]);
-
-function draw() {
+function draw(img) {
     var encoder = new GIFEncoder(480, 270);
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
@@ -52,7 +31,8 @@ function draw() {
     var ctx = canvas.getContext('2d');
 
     // first frame   
-    ctx.drawImage(images.get("Background"), 0, 0, 480, 270);
+    
+    ctx.drawImage(img, 0, 0, 480, 270);
     ctx.fillStyle = '#ff0000';
     ctx.fillRect(0, 0, 200, 200);
     ctx.fillStyle = '#000000';
