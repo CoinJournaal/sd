@@ -8,8 +8,7 @@
     "fs":"latest",
     "canvas":"latest",
     "gifencoder":"latest",
-    "gifsicle":"latest",
-    "child_proces":"latest"
+    "gifsicle":"latest"
   },
   "main": "server.js",
   "scripts": {
