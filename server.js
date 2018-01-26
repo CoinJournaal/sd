@@ -22,6 +22,7 @@ app.get("/png", function (request, res) {
 
 function draw(img) {
     var encoder = new GIFEncoder(480, 270);
+    
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(500);  // frame delay in ms
@@ -50,7 +51,7 @@ function draw(img) {
     var buf = encoder.out.getData();
     fs.writeFile('public/test.gif', buf, function (err) {
       // animated GIF written
-        console.log("GIF writter");
+        console.log("GIF written");
     });
 
     return canvas;    
