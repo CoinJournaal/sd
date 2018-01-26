@@ -38,10 +38,10 @@ function ImageCollection(list, callback){
 
 //Create an ImageCollection to load and store my images
 var images = new ImageCollection([{
-    name: "Background", url: "./bg.png"
+    name: "Background", url: "bg.png"
 }]);
 
-function draw(img) {
+function draw() {
     var encoder = new GIFEncoder(480, 270);
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
