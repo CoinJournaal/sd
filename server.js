@@ -29,12 +29,13 @@ function draw() {
     var ctx = canvas.getContext('2d');
     
     // first frame
-    fs.readFile(__dirname + '/bg.png', function(err, data) {
+    fs.readFile('bg.png', function(err, data) {
         if (err) throw err;
         var img = new Canvas.Image; // Create a new Image
         img.src = data;
 
         ctx.drawImage(img, 0, 0, 480, 270);
+        console.log('bg loaded');
     });   
     
     ctx.fillStyle = '#ff0000';
