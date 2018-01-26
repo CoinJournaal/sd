@@ -26,6 +26,9 @@ function draw() {
     ctx.font = '30px Impact';
     ctx.rotate(0.1);
     ctx.fillText('Awesome!', 50, 100);
+    
+    var buf = canvas.toBuffer();
+    fs.writeFileSync("public/test.png", buf);
 
     return canvas;
 }
