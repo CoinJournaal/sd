@@ -19,9 +19,6 @@ app.get("/png", function (request, res) {
     var img = new Canvas.Image;
     img.onload = function(){ return draw(img).pngStream().pipe(res); } 
     img.src = "bg.png";
-    gm("public/test.gif").append("intro.gif").append(function (err) {
-        if (!err) console.log('Append done');
-    });
 });
 
 function draw(img) {
@@ -56,6 +53,10 @@ function draw(img) {
     fs.writeFile('public/test.gif', buf, function (err) {
       // animated GIF written
         console.log("GIF written");
+        
+        gm("public/test.gif").append("intro.gif").append(function (err) {
+            if (err) console.log('Error '+ err);
+        });
     });
 
     return canvas;    
