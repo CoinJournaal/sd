@@ -38,7 +38,7 @@ function ImageCollection(list, callback){
 
 //Create an ImageCollection to load and store my images
 var images = new ImageCollection([{
-    name: "Background", url: "bg.png"
+    name: "Background", url: "./bg.png"
 }]);
 
 function draw(img) {
