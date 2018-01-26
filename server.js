@@ -19,23 +19,21 @@ app.get("/png", function (request, res) {
 });
 
 function draw() {
-    var encoder = new GIFEncoder(320, 240);
+    var encoder = new GIFEncoder(480, 320);
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(500);  // frame delay in ms
     encoder.setQuality(10); // image quality. 10 is default.
     
-    var canvas = new Canvas(200, 200);
+    var canvas = new Canvas(480, 320);
     var ctx = canvas.getContext('2d');
-
-    //ctx.font = '30px Impact';
-    //ctx.rotate(0.1);
-    //ctx.fillText('Awesome!', 50, 100);
     
     // first frame
-    // red rectangle
     ctx.fillStyle = '#ff0000';
     ctx.fillRect(0, 0, 200, 200);
+    ctx.fillStyle = '#000000';
+    ctx.font = '30px Impact';
+    ctx.fillText('#1 Stijger', 50, 100);
     encoder.addFrame(ctx);
     
     // green rectangle
