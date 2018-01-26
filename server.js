@@ -23,6 +23,8 @@ app.get("/png", function (request, response) {
 
     var buf = canvas.toBuffer();
     fs.writeFileSync("/public/test.png", buf);
+    
+    response.end("test.png created");
 }
 
 app.listen(port);
