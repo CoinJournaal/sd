@@ -18,9 +18,28 @@ app.get("/png", function (request, res) {
     draw().pngStream().pipe(res);
 });
 
-function loadImage(url) {
-  return new Promise(resolve => { let i = new Image(); i.onload = ()=>{resolve(i)}; i.src=url; });
+function ImageCollection(list, callback){
+    var total = 0, images = {};   //private :)
+    for(var i = 0; i < list.length; i++){
+        var img = new Image();
+        images[list[i].name] = img;
+        img.onload = function(){
+            total++;
+            if(total == list.length){
+                callback && callback();
+            }
+        };
+        img.src = list[i].url;
+    }
+    this.get = function(name){
+        return images[name] || (function(){throw "Not exist"})();
+    };
 }
+
+//Create an ImageCollection to load and store my images
+var images = new ImageCollection([{
+    name: "Background", url: "bg.png"
+}]);
 
 function draw(img) {
     var encoder = new GIFEncoder(480, 270);
@@ -33,8 +52,7 @@ function draw(img) {
     var ctx = canvas.getContext('2d');
 
     // first frame   
-    let img = await loadImage(".bg.png");
-    ctx.drawImage(img, 0, 0, 480, 270);
+    ctx.drawImage(images.get("Background"), 0, 0, 480, 270);
     ctx.fillStyle = '#ff0000';
     ctx.fillRect(0, 0, 200, 200);
     ctx.fillStyle = '#000000';
@@ -55,8 +73,7 @@ function draw(img) {
         console.log("GIF writter");
     });
 
-    return canvas;
-    
+    return canvas;    
 }
 
 
