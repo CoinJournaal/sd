@@ -62,7 +62,7 @@ function draw(img) {
 
 const request = require('request');
 var sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database(':memory:', (err) => {
+var db = new sqlite3.Database(':memory:', function (err) {
   if (err) {
     return console.error(err.message);
   }
