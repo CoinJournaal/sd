@@ -76,16 +76,16 @@ db.serialize(function() {
 
 });
 
-class coinmarketcap {
+function coinmarketcap() {
 
 	// basic api
-	constructor() {
+	//constructor() {
 		this.convert = 'EUR'; // check 'https://coinmarketcap.com/api/' for all possible currencies
 		this.apiurl = `http://api.coinmarketcap.com/v1/ticker/?convert=${this.convert}`;
 		this.apiurl_global = `http://api.coinmarketcap.com/v1/global/?convert=${this.convert}`;
-	}
+	//}
 
-	_getjsonglobal ( url, callback ) {
+	coinmarketcap.prototype._getjsonglobal = function ( url, callback ) {
 		request( this.apiurl_global+url, function( error, response, body ) {
 			if( error ) { 
 				callback( false );
@@ -101,7 +101,7 @@ class coinmarketcap {
 	}
 
 	// retrieve our json api
-	_getjson( url, callback ) {
+	coinmarketcap.prototype._getjson = function( url, callback ) {
 		request( this.apiurl+url, function( error, response, body ) {
 			if( error ) { 
 				callback( false );
@@ -117,7 +117,7 @@ class coinmarketcap {
 	}
 
 	// find coin id through coin symbol or id (e.g. 'btc' => 'bitcoin')
-	_find( symbol, json ) {
+	coinmarketcap.prototype._find = function( symbol, json ) {
 		return json.filter(
 			function( json ) {
 				return json.symbol == symbol.toUpperCase() || json.id == symbol.toLowerCase();
@@ -126,7 +126,7 @@ class coinmarketcap {
 	}
 
 	// get full coin list from coinmarketcap
-	_coinlist( callback ) {
+	coinmarketcap.prototype._coinlist = function( callback ) {
 		if( callback ) {
 			this._getjson( '&limit=0', callback );
 			return this;
@@ -135,7 +135,7 @@ class coinmarketcap {
 		}
 	}
 
-	_global ( callback ) {
+	coinmarketcap.prototype._global = function( callback ) {
 		if( callback ) {
 			this._getjsonglobal( '', callback );
 			return this;
@@ -145,7 +145,7 @@ class coinmarketcap {
 	}
 
 	// get single coin's data
-	get( symbol, callback ) {
+	coinmarketcap.prototype.get = function( symbol, callback ) {
 		this._coinlist( coins => {
 			var found = this._find( symbol, coins );
 			callback( found[0] );
@@ -157,7 +157,7 @@ class coinmarketcap {
 	// 		console.log(data['price_usd']);
 	// });
 
-	getall( callback ) {
+	coinmarketcap.prototype.getall = function( callback ) {
 		this._coinlist(coins => {
 			callback( coins );
 		}); 
@@ -168,7 +168,7 @@ class coinmarketcap {
 	// 		console.log(data[0]['price_usd']);
 	// });
 
-	getglobal ( callback ) {
+	coinmarketcap.prototype.getglobal = function ( callback ) {
 		this._global(data => {
 			callback( data );
 		}); 
