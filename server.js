@@ -215,7 +215,7 @@ cmc.getall(data => {
 		// Top 1 Gainer
 		console.log(decodeURIComponent(arraylist[0][0]));
 		console.log(arraylist[0][2]);
-		
+				
 		// Top 1 Loser
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
