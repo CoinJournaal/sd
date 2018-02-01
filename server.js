@@ -14,11 +14,20 @@ app.get("/sayHello", function (request, response) {
 });
 
 app.get("/png", function (request, res) {
-    res.setHeader('Content-Type', 'image/png');
-    var img = new Canvas.Image;
-    img.onload = function(){ return draw(img).pngStream().pipe(res); } 
-    img.src = "bg.png";
+	
+	var makeGif = function(data) {
+		console.log(data);
+		res.setHeader('Content-Type', 'image/png');
+		var img = new Canvas.Image;
+		img.onload = function(){ return draw(img).pngStream().pipe(res); } 
+		img.src = "bg.png";
+	}
+	
+	var cmc = new coinmarketcap();
+	cmc.getall(processCMC, makeGif);
 });
+
+
 
 function draw(img) {
     var encoder = new GIFEncoder(480, 270);
@@ -157,9 +166,9 @@ function coinmarketcap() {
 	// 		console.log(data['price_usd']);
 	// });
 
-	coinmarketcap.prototype.getall = function( callback ) {
+	coinmarketcap.prototype.getall = function( callback, makeGif ) {
 		this._coinlist(coins => {
-			callback( coins );
+			callback( coins, makeGif );
 		}); 
 	}
 
@@ -176,9 +185,7 @@ function coinmarketcap() {
 
 }
 
-var cmc = new coinmarketcap();
-
-var processCMC = function(data) {
+var processCMC = function(data, makeGif) {
 	console.log(data.length);
 	for(var i = 0; i < data.length; i++) {
 		if(typeof data[i]['percent_change_24h'] === "undefined") {
@@ -199,7 +206,7 @@ var processCMC = function(data) {
 	}
 	
 	var sql = "SELECT * FROM cmc ORDER BY percent_change_24h DESC";
-	db.all(sql, [], function(err, rows) {
+	db.all(sql, [], function(err, rows, makeGif) {
 		if (err) {
 			console.log(err);	
 		}
@@ -218,11 +225,13 @@ var processCMC = function(data) {
 		// Top 1 Loser
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
+		
+		makeGif("test");
 
 	});
 }
 
-cmc.getall(processCMC);
+
 
 //db.close();
 
