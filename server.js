@@ -178,8 +178,7 @@ function coinmarketcap() {
 
 var cmc = new coinmarketcap();
 
-cmc.getall(data => {
-
+var processCMC = function(err, data) {
 	console.log(data.length);
 	for(var i = 0; i < data.length; i++) {
 		if(typeof data[i]['percent_change_24h'] === "undefined") {
@@ -221,7 +220,9 @@ cmc.getall(data => {
 		console.log(arraylist[arraylist.length-1][2]);
 
 	});
-});
+}
+
+cmc.getall(processCMC);
 
 //db.close();
 
