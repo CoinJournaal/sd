@@ -15,18 +15,14 @@ app.get("/sayHello", function (request, response) {
 
 app.get("/png", function (request, res) {
 	
-	var makeGif = function(data) {
-		console.log(data);
-		res.setHeader('Content-Type', 'image/png');
-		var img = new Canvas.Image;
-		img.onload = function(){ return draw(img).pngStream().pipe(res); } 
-		img.src = "bg.png";
-	}
-	
 	var cmc = new coinmarketcap();
-	cmc.getall(processCMC, makeGif);
+	cmc.getall(processCMC);
+	
+	res.setHeader('Content-Type', 'image/png');
+	var img = new Canvas.Image;
+	img.onload = function(){ return draw(img).pngStream().pipe(res); } 
+	img.src = "bg.png";
 });
-
 
 
 function draw(img) {
@@ -166,9 +162,9 @@ function coinmarketcap() {
 	// 		console.log(data['price_usd']);
 	// });
 
-	coinmarketcap.prototype.getall = function( callback, makeGif ) {
+	coinmarketcap.prototype.getall = function( callback ) {
 		this._coinlist(coins => {
-			callback( coins, makeGif );
+			callback( coins );
 		}); 
 	}
 
@@ -185,7 +181,7 @@ function coinmarketcap() {
 
 }
 
-var processCMC = function(data, makeGif) {
+var processCMC = function(data) {
 	console.log(data.length);
 	for(var i = 0; i < data.length; i++) {
 		if(typeof data[i]['percent_change_24h'] === "undefined") {
@@ -206,7 +202,7 @@ var processCMC = function(data, makeGif) {
 	}
 	
 	var sql = "SELECT * FROM cmc ORDER BY percent_change_24h DESC";
-	db.all(sql, [], function(err, rows, makeGif) {
+	db.all(sql, [], function(err, rows) {
 		if (err) {
 			console.log(err);	
 		}
@@ -225,8 +221,6 @@ var processCMC = function(data, makeGif) {
 		// Top 1 Loser
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
-		
-		makeGif("test");
 
 	});
 }
