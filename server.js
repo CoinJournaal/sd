@@ -3,7 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
-var GIFFrames = require('gif-frames');
+var gifFrames = require('gif-frames');
 
 var port = process.env.PORT || 5000;
 
