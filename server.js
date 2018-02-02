@@ -30,6 +30,8 @@ app.get("/png", function (request, res) {
 
 function draw(img,outputData) {
     var encoder = new GIFEncoder(480, 270);
+	
+	encoder.createReadStream().pipe(fs.createWriteStream('intro.gif'));
     
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
