@@ -14,17 +14,19 @@ app.get("/sayHello", function (request, response) {
 });
 
 app.get("/png", function (request, res) {
-	var myPromise = new Promise(function(resolve, reject) {
-  
-  		var cmc = new coinmarketcap();
-  		
-		if (cmc) {
-			resolve(cmc)
-		} else {
-			reject('error')
+	var myPromise = new Promise(
+		function(resolve, reject) {
+ 
+			var cmc = new coinmarketcap();
+
+			if (cmc) {
+				resolve(cmc)
+			} else {
+				reject('error')
+			}
 		}
 
-	})
+	);
 	
 	var call1 = function (processCMC) {
     		myPromise
@@ -34,6 +36,7 @@ app.get("/png", function (request, res) {
 		.then(function(test) {
 			console.log(test);
 		});
+	};
 	
 	call1(processCMC);
 		
