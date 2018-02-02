@@ -39,25 +39,36 @@ function draw(img,outputData) {
 
     // first frame   
     
-    ctx.drawImage(img, 0, 0, 480, 270);
-    ctx.fillStyle = '#00ff00';
-    ctx.font = 'bold 30px Arial';
-    ctx.fillText('#1 Stijger', 40, 70);
+    	ctx.drawImage(img, 0, 0, 480, 270);
+    	ctx.fillStyle = '#00ff00';
+    	ctx.font = 'bold 30px Arial';
+    	ctx.fillText('#1 Stijger', 40, 70);
 	ctx.fillStyle = '#ffffff';
 	ctx.font = 'bold 50px Arial';
-	ctx.fillText(outputData[0][0], 40, 120);
+	ctx.fillText(decodeURI(outputData[0][0]), 40, 120);
 	ctx.font = '30px Arial';
 	ctx.fillText(outputData[0][1], 40, 160);
-	ctx.fillText(outputData[0][3] + " USD", 200, 210);
+	ctx.fillText(outputData[0][3] + " USD", 200, 160);
 	ctx.fillStyle = '#00ff00';
 	ctx.font = 'italic bold 50px Arial';
-	ctx.fillText(outputData[0][2] + " %", 200, 160);
+	ctx.fillText(outputData[0][2] + " %", 200, 210);
 	
     encoder.addFrame(ctx);
 
     // green rectangle
-    ctx.fillStyle = '#00ff00';
-    ctx.fillRect(0, 0, 200, 200);
+	ctx.drawImage(img, 0, 0, 480, 270);
+    	ctx.fillStyle = '#00ff00';
+    	ctx.font = 'bold 30px Arial';
+    	ctx.fillText('#1 Stijger', 30, 70);
+	ctx.fillStyle = '#ffffff';
+	ctx.font = 'bold 50px Arial';
+	ctx.fillText(decodeURI(outputData[0][0]), 30, 120);
+	ctx.font = '30px Arial';
+	ctx.fillText(outputData[0][1], 30, 160);
+	ctx.fillText(outputData[0][3] + " USD", 190, 160);
+	ctx.fillStyle = '#00ff00';
+	ctx.font = 'italic bold 50px Arial';
+	ctx.fillText(outputData[0][2] + " %", 200, 220);
     encoder.addFrame(ctx);
 
     encoder.finish();
