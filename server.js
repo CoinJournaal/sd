@@ -59,7 +59,7 @@ function draw(img,outputData) {
 		if(i<5) ctx.fillStyle = '#00ff00';
 		else ctx.fillStyle = '#ff0000';
 		ctx.font = 'bold 50px Arial';
-		ctx.fillText(outputData[i][2] + " %", 200, (220+((5-j)*10));
+		ctx.fillText(outputData[i][2] + " %", 200, (220+((5-j)*10)));
 
 		encoder.addFrame(ctx);
 	}
