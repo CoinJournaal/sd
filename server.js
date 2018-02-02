@@ -22,6 +22,8 @@ app.get("/png", function (request, res) {
 	cmc.getall(processCMC);
 	
 	res1 = res;
+	
+	res.end("Building gif");
 
 });
 
@@ -74,7 +76,7 @@ function draw(img,outputData) {
         
     });
 
-    return canvas;    
+    //return canvas;    
 }
 
 // Coinmarketcap data
@@ -255,9 +257,9 @@ var processCMC = function(data) {
 }
 
 var testLog = function(outputData) {
-	res1.setHeader('Content-Type', 'image/png');
+	//res1.setHeader('Content-Type', 'image/png');
 	var img = new Canvas.Image;
-	img.onload = function(){ return draw(img,outputData).pngStream().pipe(res1); } 
+	img.onload = function(){ draw(img,outputData).pngStream().pipe(res1); } 
 	img.src = "bg.png";
 }
 
