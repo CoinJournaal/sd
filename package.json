@@ -10,7 +10,7 @@
     "gifencoder":"latest",
     "sqlite3": "latest",
     "request": "latest",
-    "readwrite-gif": "latest"
+    "gif-frames": "latest"
   },
   "main": "server.js",
   "scripts": {
