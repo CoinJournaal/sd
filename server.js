@@ -222,10 +222,15 @@ var processCMC = function(data) {
 		// Top 1 Loser
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
+		
+		testLog("this is a test");
 
 	});
 }
 
+var testLog = function(data) {
+	console.log(data);
+}
 
 
 //db.close();
