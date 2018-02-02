@@ -17,7 +17,7 @@ app.get("/png", function (request, res) {
  
 	var cmc = new coinmarketcap();
 
-	processCMC(cmc.getall());
+	cmc.getall(processCMC);
 		
 	res.setHeader('Content-Type', 'image/png');
 	var img = new Canvas.Image;
@@ -165,8 +165,7 @@ function coinmarketcap() {
 
 	coinmarketcap.prototype.getall = function( callback ) {
 		this._coinlist(coins => {
-			//callback( coins );
-			return coins;
+			callback( coins );
 		}); 
 	}
 
