@@ -6,6 +6,8 @@ var GIFEncoder = require('gifencoder');
 
 var port = process.env.PORT || 5000;
 
+global.res1;
+
 app.use(express.static(__dirname + '/public'));
 
 app.get("/sayHello", function (request, response) {
@@ -18,11 +20,9 @@ app.get("/png", function (request, res) {
 	var cmc = new coinmarketcap();
 
 	cmc.getall(processCMC);
-		
-	res.setHeader('Content-Type', 'image/png');
-	var img = new Canvas.Image;
-	img.onload = function(){ return draw(img).pngStream().pipe(res); } 
-	img.src = "bg.png";
+	
+	res1 = res;
+
 });
 
 
@@ -230,6 +230,10 @@ var processCMC = function(data) {
 
 var testLog = function(data) {
 	console.log(data);
+	res1.setHeader('Content-Type', 'image/png');
+	var img = new Canvas.Image;
+	img.onload = function(){ return draw(img).pngStream().pipe(res1); } 
+	img.src = "bg.png";
 }
 
 
