@@ -260,7 +260,7 @@ var processCMC = function(data) {
 var testLog = function(outputData) {
 	//res1.setHeader('Content-Type', 'image/png');
 	var img = new Canvas.Image;
-	img.onload = function(){ draw(img,outputData).pngStream().pipe(res1); } 
+	img.onload = function(){ draw(img,outputData); } 
 	img.src = "bg.png";
 }
 
