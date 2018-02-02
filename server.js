@@ -45,13 +45,13 @@ function draw(img,outputData) {
     ctx.fillText('#1 Stijger', 40, 70);
 	ctx.fillStyle = '#ffffff';
 	ctx.font = 'bold 50px Arial';
-	ctx.fillText(outputData[0][0], 40, 110);
+	ctx.fillText(outputData[0][0], 40, 120);
 	ctx.font = '30px Arial';
-	ctx.fillText(outputData[0][1], 40, 150);
-	ctx.fillText(outputData[0][3] + " USD", 200, 300);
+	ctx.fillText(outputData[0][1], 40, 160);
+	ctx.fillText(outputData[0][3] + " USD", 200, 210);
 	ctx.fillStyle = '#00ff00';
 	ctx.font = 'italic bold 50px Arial';
-	ctx.fillText(outputData[0][2] + " %", 200, 250);
+	ctx.fillText(outputData[0][2] + " %", 200, 160);
 	
     encoder.addFrame(ctx);
 
