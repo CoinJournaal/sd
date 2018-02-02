@@ -3,6 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
+var GIFFrames = require('gif-frames');
 
 var port = process.env.PORT || 5000;
 
@@ -31,13 +32,21 @@ app.get("/png", function (request, res) {
 function draw(img,outputData) {
     var encoder = new GIFEncoder(480, 270);
     
+
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(100);  // frame delay in ms
     encoder.setQuality(10); // image quality. 10 is default.
-
+	
     var canvas = new Canvas(480, 270);
     var ctx = canvas.getContext('2d');
+	
+	gifFrames({ url: 'intro.gif', frames: 'all' }).then(function (frameData) {
+  		frameData.forEach(function (frame) {
+			ctx.drawImage(frame.getImage(),0,0,480,270);
+			encoder.addFrame(ctx);
+		});
+	});
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
