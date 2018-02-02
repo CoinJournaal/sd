@@ -33,7 +33,7 @@ function draw(img,outputData) {
     
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
-    encoder.setDelay(500);  // frame delay in ms
+    encoder.setDelay(100);  // frame delay in ms
     encoder.setQuality(10); // image quality. 10 is default.
 
     var canvas = new Canvas(480, 270);
@@ -41,28 +41,29 @@ function draw(img,outputData) {
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
+	    encoder.setDelay(100);
 	for(var j = 0; j < 5; j++) {
 		ctx.drawImage(img, 0, 0, 480, 270);
 		ctx.font = 'bold 30px Arial';
 		if(i<5) { 
 			ctx.fillStyle = '#00ff00';
-			ctx.fillText('#'+(i+1)+' Stijger', (40-(5-j)*10), 70);
+			ctx.fillText('#'+(i+1)+' Stijger', (40-(4-j)*10), 70);
 		}
 		else {
 			ctx.fillStyle = '#ff0000';
-			ctx.fillText('#'+(i-4)+' Daler', (40-(5-j)*10), 70);
+			ctx.fillText('#'+(i-4)+' Daler', (40-(4-j)*10), 70);
 		}
 		ctx.fillStyle = '#ffffff';
 		ctx.font = 'bold 50px Arial';
-		ctx.fillText(decodeURI(outputData[i][0]), (40-(5-j)*10), 130);
+		ctx.fillText(decodeURI(outputData[i][0]), (40-(4-j)*10), 130);
 		ctx.font = '30px Arial';
 		ctx.fillText(outputData[i][1], (40-(5-j)*10), 175);
-		ctx.fillText(outputData[i][3] + " USD", (200-(5-j)*50), 175);
+		ctx.fillText(outputData[i][3] + " USD", (200-(4-j)*50), 175);
 		if(i<5) ctx.fillStyle = '#00ff00';
 		else ctx.fillStyle = '#ff0000';
 		ctx.font = 'bold 50px Arial';
-		ctx.fillText(outputData[i][2] + " %", 200, (220+((5-j)*10)));
-
+		ctx.fillText(outputData[i][2] + " %", 200, (220+((4-j)*10)));
+		if(j == 4) encoder.setDelay(1000);
 		encoder.addFrame(ctx);
 	}
     }
