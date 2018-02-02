@@ -9,7 +9,8 @@
     "canvas":"1.4.x",
     "gifencoder":"latest",
     "sqlite3": "latest",
-    "request": "latest"
+    "request": "latest",
+    "readwrite-gif": "latest"
   },
   "main": "server.js",
   "scripts": {
