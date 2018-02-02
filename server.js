@@ -41,11 +41,15 @@ function draw(img,outputData) {
     var canvas = new Canvas(480, 270);
     var ctx = canvas.getContext('2d');
 	
-	gifFrames({ url: 'intro.gif', frames: 'all' }).then(function (frameData) {
+	gifFrames({ url: 'intro.gif', frames: 'all' }).then(function (err, frameData) {
+		    if (err) {
+		      console.log( err );
+		    }
   		frameData.forEach(function (frame) {
 			ctx.drawImage(frame.getImage(),0,0,480,270);
 			encoder.addFrame(ctx);
 		});
+		console.log("intro gif read");
 	});
 
     // first frame   
