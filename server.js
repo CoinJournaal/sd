@@ -40,15 +40,18 @@ function draw(img,outputData) {
     // first frame   
     
     ctx.drawImage(img, 0, 0, 480, 270);
-    ctx.fillStyle = '#ff0000';
-    ctx.fillRect(0, 0, 200, 200);
-    ctx.fillStyle = '#000000';
-    ctx.font = '30px Impact';
-    ctx.fillText('#1 Stijger', 50, 100);
-	ctx.fillText(outputData[0][0], 50, 200);
-	ctx.fillText(outputData[0][1], 50, 250);
-	ctx.fillText(outputData[0][2], 200, 250);
-	ctx.fillText(outputData[0][3], 200, 300);
+    ctx.fillStyle = '#00ff00';
+    ctx.font = '30px Arial';
+    ctx.fillText('#1 Stijger', 40, 70);
+	ctx.fillStyle = '#ffffff';
+	ctx.font = '50px Arial';
+	ctx.fillText(outputData[0][0], 40, 110);
+	ctx.font = '30px Arial';
+	ctx.fillText(outputData[0][1], 40, 150);
+	ctx.fillText(outputData[0][3] + " USD", 200, 300);
+	ctx.fillStyle = '#00ff00';
+	ctx.fillText(outputData[0][2] + " %", 200, 250);
+	
     encoder.addFrame(ctx);
 
     // green rectangle
