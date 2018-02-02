@@ -50,7 +50,7 @@ function draw(img,outputData) {
 			encoder.addFrame(ctx);
 		});
 		console.log("intro gif read");
-	});
+	}).then(function (err) {
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
@@ -89,6 +89,7 @@ function draw(img,outputData) {
         console.log("GIF written");
         
     });
+	});
 
     //return canvas;    
 }
