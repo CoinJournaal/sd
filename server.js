@@ -26,7 +26,7 @@ app.get("/png", function (request, res) {
 });
 
 
-function draw(img) {
+function draw(img,outputData) {
     var encoder = new GIFEncoder(480, 270);
     
     encoder.start();
@@ -45,6 +45,10 @@ function draw(img) {
     ctx.fillStyle = '#000000';
     ctx.font = '30px Impact';
     ctx.fillText('#1 Stijger', 50, 100);
+	ctx.fillText(outputData[0][0], 50, 200);
+	ctx.fillText(outputData[0][1], 50, 250);
+	ctx.fillText(outputData[0][2], 200, 250);
+	ctx.fillText(outputData[0][3], 200, 300);
     encoder.addFrame(ctx);
 
     // green rectangle
@@ -223,16 +227,28 @@ var processCMC = function(data) {
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
 		
-		testLog("this is a test");
+		var outputData = [
+			[decodeURIComponent(arraylist[0][0]),arraylist[0][1],arraylist[0][2],arraylist[0][3]],
+			[decodeURIComponent(arraylist[1][0]),arraylist[1][1],arraylist[1][2],arraylist[1][3]],
+			[decodeURIComponent(arraylist[2][0]),arraylist[2][1],arraylist[2][2],arraylist[2][3]],
+			[decodeURIComponent(arraylist[3][0]),arraylist[3][1],arraylist[3][2],arraylist[3][3]],
+			[decodeURIComponent(arraylist[4][0]),arraylist[4][1],arraylist[4][2],arraylist[4][3]],
+			[decodeURIComponent(arraylist[arraylist.length-1][0]),arraylist[arraylist.length-1][1],arraylist[arraylist.length-1][2],arraylist[arraylist.length-1][3]],
+			[decodeURIComponent(arraylist[arraylist.length-2][0]),arraylist[arraylist.length-2][1],arraylist[arraylist.length-2][2],arraylist[arraylist.length-2][3]],
+			[decodeURIComponent(arraylist[arraylist.length-3][0]),arraylist[arraylist.length-3][1],arraylist[arraylist.length-3][2],arraylist[arraylist.length-3][3]],
+			[decodeURIComponent(arraylist[arraylist.length-4][0]),arraylist[arraylist.length-4][1],arraylist[arraylist.length-4][2],arraylist[arraylist.length-4][3]],
+			[decodeURIComponent(arraylist[arraylist.length-5][0]),arraylist[arraylist.length-5][1],arraylist[arraylist.length-5][2],arraylist[arraylist.length-5][3]],
+			];
+		
+		testLog(outputData);
 
 	});
 }
 
-var testLog = function(data) {
-	console.log(data);
+var testLog = function(outputData) {
 	res1.setHeader('Content-Type', 'image/png');
 	var img = new Canvas.Image;
-	img.onload = function(){ return draw(img).pngStream().pipe(res1); } 
+	img.onload = function(){ return draw(img,outputData).pngStream().pipe(res1); } 
 	img.src = "bg.png";
 }
 
