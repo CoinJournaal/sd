@@ -39,27 +39,30 @@ function draw(img,outputData) {
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
-    	ctx.drawImage(img, 0, 0, 480, 270);
-    	ctx.font = 'bold 30px Arial';
-    	if(i<5) { 
-		ctx.fillStyle = '#00ff00';
-		ctx.fillText('#'+i+' Stijger', 40, 70);
+	for(var j = 0; j < 5; j++) {
+		ctx.drawImage(img, 0, 0, 480, 270);
+		ctx.font = 'bold 30px Arial';
+		if(i<5) { 
+			ctx.fillStyle = '#00ff00';
+			ctx.fillText('#'+(i+1)+' Stijger', (40-j*10), 70);
+		}
+		else {
+			ctx.fillStyle = '#ff0000';
+			ctx.fillText('#'+(i-4)+' Daler', (40-j*10), 70);
+		}
+		ctx.fillStyle = '#ffffff';
+		ctx.font = 'bold 50px Arial';
+		ctx.fillText(decodeURI(outputData[i][0]), (40-j*10), 130);
+		ctx.font = '30px Arial';
+		ctx.fillText(outputData[i][1], (40-j*10), 175);
+		ctx.fillText(outputData[i][3] + " USD", (200-j*50), 175);
+		if(i<5) ctx.fillStyle = '#00ff00';
+		else ctx.fillStyle = '#ff0000';
+		ctx.font = 'bold 50px Arial';
+		ctx.fillText(outputData[i][2] + " %", 200, (220+((5-j)*10));
+
+		encoder.addFrame(ctx);
 	}
-	else {
-		ctx.fillStyle = '#ff0000';
-		ctx.fillText('#'+(i-4)+' Daler', 40, 70);
-	}
-	ctx.fillStyle = '#ffffff';
-	ctx.font = 'bold 50px Arial';
-	ctx.fillText(decodeURI(outputData[i][0]), 40, 130);
-	ctx.font = '30px Arial';
-	ctx.fillText(outputData[i][1], 40, 175);
-	ctx.fillText(outputData[i][3] + " USD", 200, 175);
-	ctx.fillStyle = '#00ff00';
-	ctx.font = 'italic bold 50px Arial';
-	ctx.fillText(outputData[i][2] + " %", 200, 220);
-	
-    	encoder.addFrame(ctx);
     }
 
     encoder.finish();
