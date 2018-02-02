@@ -14,31 +14,10 @@ app.get("/sayHello", function (request, response) {
 });
 
 app.get("/png", function (request, res) {
-	var myPromise = new Promise(
-		function(resolve, reject) {
  
-			var cmc = new coinmarketcap();
+	var cmc = new coinmarketcap();
 
-			if (cmc) {
-				resolve(cmc)
-			} else {
-				reject('error')
-			}
-		}
-
-	);
-	
-	var call1 = function (processCMC) {
-    		myPromise
-		.then(function(cmc) {
-			processCMC(cmc.getall());
-		})
-		.then(function(test) {
-			console.log(test);
-		});
-	};
-	
-	call1(processCMC);
+	processCMC(cmc.getall());
 		
 	res.setHeader('Content-Type', 'image/png');
 	var img = new Canvas.Image;
@@ -244,8 +223,6 @@ var processCMC = function(data) {
 		// Top 1 Loser
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
-		
-		return Promise.resolve(decodeURIComponent(arraylist[0][0]));
 
 	});
 }
