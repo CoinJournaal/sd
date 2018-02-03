@@ -9,8 +9,7 @@
     "canvas":"1.4.x",
     "gifencoder":"latest",
     "sqlite3": "latest",
-    "request": "latest",
-    "gif-frames": "latest"
+    "request": "latest"
   },
   "main": "server.js",
   "scripts": {
