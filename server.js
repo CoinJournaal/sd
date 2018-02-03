@@ -3,7 +3,6 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
-var gifFrames = require('gif-frames');
 
 var port = process.env.PORT || 5000;
 
@@ -40,17 +39,6 @@ function draw(img,outputData) {
 	
     var canvas = new Canvas(480, 270);
     var ctx = canvas.getContext('2d');
-	
-	gifFrames({ url: 'intro.gif', frames: 'all' }).then(function (err, frameData) {
-		    if (err) {
-		      console.log( err );
-		    }
-  		frameData.forEach(function (frame) {
-			ctx.drawImage(frame.getImage(),0,0,480,270);
-			encoder.addFrame(ctx);
-		});
-		console.log("intro gif read");
-	}).then(function (err) {
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
@@ -89,7 +77,6 @@ function draw(img,outputData) {
         console.log("GIF written");
         
     });
-	});
 
     //return canvas;    
 }
