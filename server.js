@@ -61,7 +61,7 @@ function draw(img,outputData) {
 		ctx.fillText(decodeURI(outputData[i][0]), (40-(4-j)*10), 130);
 		ctx.font = '30px Arial';
 		ctx.fillText(outputData[i][1], (40-(4-j)*10), 175);
-		ctx.fillText(outputData[i][3].substring(0, 8); + " USD", (200-(4-j)*50), 175);
+		ctx.fillText(outputData[i][3].substring(0, 8) + " USD", (200-(4-j)*50), 175);
 		if(i<5) ctx.fillStyle = '#00ff00';
 		else ctx.fillStyle = '#ff0000';
 		ctx.font = 'bold 50px Arial';
