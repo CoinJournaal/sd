@@ -46,10 +46,10 @@ function draw(img,outputData) {
 	ctx2.drawImage(img, 0, 0, 480, 270);
 	ctx2.font = 'bold 30px Arial';
 	ctx2.fillStyle = '#ffffff';
-	ctx2.fillText('Top 5 Stijgers & Dalers', 40, 120);
+	ctx2.fillText('Top 5 Stijgers & Dalers', 120, 120);
 	ctx2.font = '25px Arial';
-	ctx2.fillText('van de afgelopen 24 uur', 70, 160);
-	ctx2.fillText(moment().format("DD-MM-YYYY"), 100, 190);
+	ctx2.fillText('van de afgelopen 24 uur', 140, 160);
+	ctx2.fillText(moment().format("DD-MM-YYYY"), 200, 200);
 	encoder2.addFrame(ctx2);
 	
 	encoder2.finish();
