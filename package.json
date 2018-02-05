@@ -9,6 +9,7 @@
     "canvas":"1.4.x",
     "gifencoder":"latest",
     "sqlite3": "latest",
+    "imagemagick": "latest",
     "request": "latest"
   },
   "main": "server.js",
