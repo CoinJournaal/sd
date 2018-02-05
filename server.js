@@ -3,6 +3,7 @@ var express = require("express"),
 var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
+var im = require('imagemagick');
 
 var port = process.env.PORT || 5000;
 
