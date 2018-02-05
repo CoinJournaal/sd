@@ -33,23 +33,23 @@ app.get("/png", function (request, res) {
 
 
 function draw(img,outputData) {
-	var encoder2 = new GIFEncoder(480, 240);
+	var encoder2 = new GIFEncoder(420, 270);
 
 	encoder2.start();
 	encoder2.setRepeat(0);   // 0 for repeat, -1 for no-repeat
 	encoder2.setDelay(100);  // frame delay in ms
 	encoder2.setQuality(10); // image quality. 10 is default.
 
-	var canvas2 = new Canvas(480, 240);
+	var canvas2 = new Canvas(420, 270);
 	var ctx2 = canvas2.getContext('2d');
 	
-	ctx2.drawImage(img, 0, 0, 480, 270);
+	ctx2.drawImage(img, 0, 0, 420, 270);
 	ctx2.font = 'bold 30px Arial';
 	ctx2.fillStyle = '#ffffff';
-	ctx2.fillText('Top 5 Stijgers & Dalers', 100, 120);
+	ctx2.fillText('Top 5 Stijgers & Dalers', 80, 120);
 	ctx2.font = '25px Arial';
-	ctx2.fillText('van de afgelopen 24 uur', 120, 160);
-	ctx2.fillText(moment().format("DD-MM-YYYY"), 180, 200);
+	ctx2.fillText('van de afgelopen 24 uur', 100, 160);
+	ctx2.fillText(moment().format("DD-MM-YYYY"), 160, 200);
 	encoder2.addFrame(ctx2);
 	
 	encoder2.finish();
@@ -61,21 +61,21 @@ function draw(img,outputData) {
        		console.log("Front GIF written");
 	});
 	
-	var encoder = new GIFEncoder(480, 240);
+	var encoder = new GIFEncoder(420, 270);
     
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(100);  // frame delay in ms
     encoder.setQuality(10); // image quality. 10 is default.
 	
-    var canvas = new Canvas(480, 240);
+    var canvas = new Canvas(420, 270);
     var ctx = canvas.getContext('2d');
 
     // first frame   
     for(var i = 0; i < outputData.length; i++) {
 	    encoder.setDelay(100);
 	for(var j = 0; j < 5; j++) {
-		ctx.drawImage(img, 0, 0, 480, 240);
+		ctx.drawImage(img, 0, 0, 420, 270);
 		ctx.font = 'bold 30px Arial';
 		if(i<5) { 
 			ctx.fillStyle = '#00ff00';
