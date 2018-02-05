@@ -43,7 +43,6 @@ function draw(img,outputData) {
 	var canvas2 = new Canvas(480, 270);
 	var ctx2 = canvas2.getContext('2d');
 	
-	var encoder2 = new GIFEncoder(480, 270);
 	ctx2.drawImage(img, 0, 0, 480, 270);
 	ctx2.font = 'bold 30px Arial';
 	ctx2.fillStyle = '#ffffff';
@@ -56,8 +55,9 @@ function draw(img,outputData) {
 	encoder2.finish();
 
     	var buf2 = encoder2.out.getData();
-    	fs.writeFile('public/front.gif', buf, function (err) {
+    	fs.writeFile('public/front.gif', buf2, function (err) {
       		// animated GIF written
+		if(err) console.log("front GIF error "+err);
        		console.log("Front GIF written");
 	});
 	
