@@ -76,7 +76,11 @@ function draw(img,outputData) {
     fs.writeFile('public/test.gif', buf, function (err) {
       // animated GIF written
         console.log("GIF written");
-        
+        im.convert(['intro.gif', 'public/test.gif', 'public/test2.gif'], 
+		function(err, stdout){
+		  if (err) throw err;
+		  console.log('stdout:', stdout);
+		});
     });
 
     //return canvas;    
