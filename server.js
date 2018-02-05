@@ -31,9 +31,36 @@ app.get("/png", function (request, res) {
 
 
 function draw(img,outputData) {
-    var encoder = new GIFEncoder(480, 270);
-    
+	var encoder2 = new GIFEncoder(480, 270);
 
+	encoder2.start();
+	encoder2.setRepeat(0);   // 0 for repeat, -1 for no-repeat
+	encoder2.setDelay(100);  // frame delay in ms
+	encoder2.setQuality(10); // image quality. 10 is default.
+
+	var canvas2 = new Canvas(480, 270);
+	var ctx2 = canvas2.getContext('2d');
+	
+	var encoder2 = new GIFEncoder(480, 270);
+	ctx2.drawImage(img, 0, 0, 480, 270);
+	ctx2.font = 'bold 30px Arial';
+	ctx2.fillStyle = '#ffffff';
+	ctx2.fillText('Top 5 Stijgers & Dalers', 40, 120);
+	ctx2.font = '25px Arial';
+	ctx2.fillText('van de afgelopen 24 uur', 70, 160);
+	ctx2.fillText(moment().format("DD-MM-YYYY"), 100, 190);
+	encoder2.addFrame(ctx2);
+	
+	encoder2.finish();
+
+    	var buf2 = encoder2.out.getData();
+    	fs.writeFile('public/front.gif', buf, function (err) {
+      		// animated GIF written
+       		console.log("Front GIF written");
+	});
+	
+	var encoder = new GIFEncoder(480, 270);
+    
     encoder.start();
     encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(100);  // frame delay in ms
@@ -77,7 +104,7 @@ function draw(img,outputData) {
     fs.writeFile('public/test.gif', buf, function (err) {
       // animated GIF written
         console.log("GIF written");
-        im.convert(['intro-short.gif', 'public/test.gif', 'public/'+ moment().format("YYYYMMDD") +'.gif'], 
+        im.convert(['public/front.gif', 'intro-short.gif', 'public/test.gif', 'public/'+ moment().format("YYYYMMDD") +'.gif'], 
 		function(err, stdout){
 		  if (err) throw err;
 		  console.log('stdout:', stdout);
