@@ -1,3 +1,5 @@
+// Snel in elkaar gehackt, please excuse the callback hell
+
 var express = require("express"),
     app = express();
 var fs = require("fs");
