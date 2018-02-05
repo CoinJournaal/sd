@@ -4,6 +4,7 @@ var fs = require("fs");
 var Canvas = require("canvas");
 var GIFEncoder = require('gifencoder');
 var im = require('imagemagick');
+var moment = require('moment');
 
 var port = process.env.PORT || 5000;
 
@@ -76,10 +77,11 @@ function draw(img,outputData) {
     fs.writeFile('public/test.gif', buf, function (err) {
       // animated GIF written
         console.log("GIF written");
-        im.convert(['intro-short.gif', 'public/test.gif', 'public/test2.gif'], 
+        im.convert(['intro-short.gif', 'public/test.gif', 'public/'+ moment().format("YYYYMMDD") +'.gif'], 
 		function(err, stdout){
 		  if (err) throw err;
 		  console.log('stdout:', stdout);
+			console.log('GIF merged:'+moment().format("YYYYMMDD")+'.gif');
 		});
     });
 
