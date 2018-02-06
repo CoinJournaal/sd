@@ -277,7 +277,7 @@ var processCMC = function(data) {
 		console.log(arraylist[arraylist.length-1][2]);
 		
 	
-		fs.writeFile("/public/"+moment().format("YYYYMMDD")+"stijgers.txt", arraylist[0][1] + " " + arraylist[1][1] + " " + arraylist[2][1]+ " " + arraylist[3][1]+ " " + arraylist[4][1], function(err) {
+		fs.writeFile("public/"+moment().format("YYYYMMDD")+"stijgers.txt", arraylist[0][1] + " " + arraylist[1][1] + " " + arraylist[2][1]+ " " + arraylist[3][1]+ " " + arraylist[4][1], function(err) {
 		    if(err) {
 			return console.log(err);
 		    }
@@ -285,7 +285,7 @@ var processCMC = function(data) {
 		    console.log("The stijgers file was saved!");
 		}); 
 		
-		fs.writeFile("/public/"+moment().format("YYYYMMDD")+"dalers.txt", arraylist[arraylist.length-1][1] + " " + arraylist[arraylist.length-2][1] + " " + arraylist[arraylist.length-3][1]+ " " + arraylist[arraylist.length-4][1]+ " " + arraylist[arraylist.length-5][1], function(err) {
+		fs.writeFile("public/"+moment().format("YYYYMMDD")+"dalers.txt", arraylist[arraylist.length-1][1] + " " + arraylist[arraylist.length-2][1] + " " + arraylist[arraylist.length-3][1]+ " " + arraylist[arraylist.length-4][1]+ " " + arraylist[arraylist.length-5][1], function(err) {
 		    if(err) {
 			return console.log(err);
 		    }
