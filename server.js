@@ -276,6 +276,23 @@ var processCMC = function(data) {
 		console.log(decodeURIComponent(arraylist[arraylist.length-1][0]));
 		console.log(arraylist[arraylist.length-1][2]);
 		
+	
+		fs.writeFile("/public/"+moment().format("YYYYMMDD")+"stijgers.txt", arraylist[0][1] + " " + arraylist[1][1] + " " + arraylist[2][1]+ " " + arraylist[3][1]+ " " + arraylist[4][1], function(err) {
+		    if(err) {
+			return console.log(err);
+		    }
+
+		    console.log("The stijgers file was saved!");
+		}); 
+		
+		fs.writeFile("/public/"+moment().format("YYYYMMDD")+"dalers.txt", arraylist[arraylist.length-1][1] + " " + arraylist[arraylist.length-2][1] + " " + arraylist[arraylist.length-3][1]+ " " + arraylist[arraylist.length-4][1]+ " " + arraylist[arraylist.length-5][1], function(err) {
+		    if(err) {
+			return console.log(err);
+		    }
+
+		    console.log("The dalers file was saved!");
+		}); 
+		
 		var outputData = [
 			[decodeURIComponent(arraylist[0][0]),arraylist[0][1],arraylist[0][2],arraylist[0][3]],
 			[decodeURIComponent(arraylist[1][0]),arraylist[1][1],arraylist[1][2],arraylist[1][3]],
